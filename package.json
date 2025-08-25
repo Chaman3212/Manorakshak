@@ -1,0 +1,16 @@
+{
+  "name": "manorakshak-extension",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-extension.js"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.21.5",
+    "fs-extra": "^11.2.0"
+  }
+} 
