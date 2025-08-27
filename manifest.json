@@ -23,5 +23,11 @@
     "16": "icon.png",
     "48": "icon.png",
     "128": "icon.png"
-  }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["userDashboard.html", "userDashboard.js", "userDashboard.css"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 } 

@@ -1,0 +1,102 @@
+:root {
+  --bg-start: #eef2ff; /* indigo-100 */
+  --bg-end: #ffffff;
+  --ink: #0f172a;
+  --muted: #64748b; /* slate-500 */
+  --brand: #6366f1; /* indigo-500 */
+  --brand-strong: #4f46e5; /* indigo-600 */
+  --danger: #ef4444;
+  --pink: #ec4899;
+  --ring: rgba(99, 102, 241, 0.35);
+  --card: #ffffff;
+  --border: #e5e7eb;
+  --shadow: 0 10px 30px rgba(2, 6, 23, 0.10);
+  --toxic: #0ea5e9; /* sky-500 */
+  --toxic-strong: #0284c7; /* sky-600 */
+}
+
+html, body {
+  background: linear-gradient(180deg, var(--bg-start), var(--bg-end));
+  color: var(--ink);
+}
+
+.mrk-popup {
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.mrk-title {
+  color: var(--brand-strong);
+  letter-spacing: 0.2px;
+}
+
+.mrk-quote {
+  padding: 8px 12px;
+  background: #f8fafc;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  color: var(--muted);
+}
+
+.mrk-timer {
+  letter-spacing: 2px;
+  text-shadow: 0 1px 0 #fff;
+  color: var(--brand-strong);
+}
+
+.mrk-controls { justify-content: center; }
+
+.mrk-btn {
+  transition: transform 120ms ease, box-shadow 120ms ease, background-color 120ms ease;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+}
+.mrk-btn:hover { transform: translateY(-1px); }
+.mrk-btn:active { transform: translateY(0); }
+
+.mrk-btn--start { background: var(--brand); }
+.mrk-btn--start:hover { background: var(--brand-strong); }
+
+.mrk-btn--pause { background: #ef4444; }
+.mrk-btn--pause:hover { background: #dc2626; }
+
+.mrk-btn--reset { background: var(--pink); }
+.mrk-btn--reset:hover { background: #db2777; }
+
+.mrk-btn--toxic { background: var(--toxic); }
+.mrk-btn--toxic:hover { background: var(--toxic-strong); }
+
+.mrk-streak {
+  padding: 8px 10px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  width: 100%;
+}
+
+.mrk-calm-card {
+  background: var(--card);
+  border-color: var(--border);
+}
+
+.mrk-calm-toggle {
+  outline: none;
+  background: var(--brand);
+}
+.mrk-calm-toggle:hover { background: var(--brand-strong); }
+.mrk-calm-toggle:focus-visible {
+  box-shadow: 0 0 0 3px var(--ring);
+}
+
+.mrk-dashboard-btn {
+  background: linear-gradient(180deg, #ffffff, #f0f9ff);
+  border-color: #bae6fd;
+  color: var(--brand-strong);
+}
+.mrk-dashboard-btn:hover {
+  background: linear-gradient(180deg, #f0f9ff, #ffffff);
+} 

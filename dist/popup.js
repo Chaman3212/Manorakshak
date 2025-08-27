@@ -24442,6 +24442,7 @@
       parseInt(localStorage.getItem("streak") || "0")
     );
     const [quote, setQuote] = (0, import_react.useState)("");
+    const [calmMode, setCalmMode] = (0, import_react.useState)(false);
     (0, import_react.useEffect)(() => {
       let timer;
       if (isRunning && time > 0) {
@@ -24462,28 +24463,68 @@
     (0, import_react.useEffect)(() => {
       localStorage.setItem("streak", streak);
     }, [streak]);
+    (0, import_react.useEffect)(() => {
+      try {
+        if (typeof chrome !== "undefined" && chrome.storage && chrome.storage.local) {
+          chrome.storage.local.get(["calmModeEnabled"], (result) => {
+            if (typeof result?.calmModeEnabled === "boolean") {
+              setCalmMode(result.calmModeEnabled);
+            }
+          });
+        }
+      } catch (_) {
+      }
+    }, []);
+    const handleToggleCalmMode = () => {
+      const next = !calmMode;
+      setCalmMode(next);
+      try {
+        if (typeof chrome !== "undefined" && chrome.storage && chrome.storage.local) {
+          chrome.storage.local.set({ calmModeEnabled: next });
+        }
+      } catch (_) {
+      }
+    };
+    const openUserDashboard = () => {
+      try {
+        const url = chrome?.runtime?.getURL ? chrome.runtime.getURL("userDashboard.html") : "userDashboard.html";
+        if (chrome?.tabs?.create) {
+          chrome.tabs.create({ url });
+        } else {
+          window.open(url, "_blank");
+        }
+      } catch (_) {
+        window.open("userDashboard.html", "_blank");
+      }
+    };
+    const handleToxic = () => {
+      try {
+        console.log("Toxic button clicked");
+      } catch (_) {
+      }
+    };
     const formatTime = (seconds) => {
       const m = String(Math.floor(seconds / 60)).padStart(2, "0");
       const s = String(seconds % 60).padStart(2, "0");
       return `${m}:${s}`;
     };
-    return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "w-80 p-5 bg-gradient-to-b from-green-50 to-white rounded-2xl shadow-xl flex flex-col items-center", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { className: "text-2xl font-bold text-green-700 mb-2", children: "\u{1F338} Chirag Lotus" }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { className: "text-sm text-gray-600 italic text-center mb-4", children: quote }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "text-4xl font-mono text-green-800 mb-4", children: formatTime(time) }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex gap-2 mb-4", children: [
+    return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "mrk-popup w-80 p-5 bg-gradient-to-b from-green-50 to-white rounded-2xl shadow-xl flex flex-col  text-center", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { className: "mrk-title text-2xl font-bold text-green-700 mb-2", children: "\u{1F338}Manorakshak" }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { className: "mrk-quote text-sm text-gray-600 italic text-center mb-4", children: quote }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "mrk-timer text-4xl font-mono text-green-800 mb-4", children: formatTime(time) }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "mrk-controls flex gap-2 mb-4 justify-center items-center", children: [
         !isRunning ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
           "button",
           {
             onClick: () => setIsRunning(true),
-            className: "px-4 py-2 bg-green-600 text-white rounded-xl shadow hover:bg-green-700",
+            className: "mrk-btn mrk-btn--start px-4 py-2 bg-green-600 text-white rounded-xl shadow hover:bg-green-700",
             children: "\u25B6 Start"
           }
         ) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
           "button",
           {
             onClick: () => setIsRunning(false),
-            className: "px-4 py-2 bg-red-500 text-white rounded-xl shadow hover:bg-red-600",
+            className: "mrk-btn mrk-btn--pause px-4 py-2 bg-red-500 text-white rounded-xl shadow hover:bg-red-600",
             children: "\u23F8 Pause"
           }
         ),
@@ -24495,16 +24536,48 @@
               setTime(25 * 60);
               setStreak(streak + 1);
             },
-            className: "px-4 py-2 bg-pink-500 text-white rounded-xl shadow hover:bg-pink-600",
+            className: "mrk-btn mrk-btn--reset px-4 py-2 bg-pink-500 text-white rounded-xl shadow hover:bg-pink-600",
             children: "\u{1F504} Reset"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+          "button",
+          {
+            onClick: handleToxic,
+            className: "mrk-btn mrk-btn--toxic px-4 py-2 text-white rounded-xl shadow",
+            title: "Toxic",
+            children: "\u2623 Toxic"
           }
         )
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "text-sm text-gray-700", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "mrk-streak text-sm text-gray-700 mb-4", children: [
         "\u{1F525} Focus Streak: ",
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "font-bold text-green-700", children: streak }),
         " days"
-      ] })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "mrk-calm-card w-full mb-4 p-3 rounded-xl border border-green-100 bg-white shadow-sm flex items-center justify-between", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "text-sm text-gray-800 font-medium", children: [
+          "Calm Mode: ",
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: calmMode ? "text-green-700" : "text-gray-500", children: calmMode ? "ON" : "OFF" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+          "button",
+          {
+            onClick: handleToggleCalmMode,
+            className: `mrk-calm-toggle px-3 py-1 rounded-full text-white text-sm shadow ${calmMode ? "bg-green-600 hover:bg-green-700" : "bg-gray-400 hover:bg-gray-500"}`,
+            "aria-pressed": calmMode,
+            children: calmMode ? "Turn Off" : "Turn On"
+          }
+        )
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+        "button",
+        {
+          onClick: openUserDashboard,
+          className: "mrk-dashboard-btn w-full px-4 py-2 bg-white border border-green-200 rounded-xl shadow hover:bg-green-50 text-green-700 font-medium",
+          children: "View User Dashboard"
+        }
+      )
     ] });
   }
 

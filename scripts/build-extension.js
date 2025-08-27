@@ -26,8 +26,12 @@ async function main() {
   await Promise.all([
     fs.copy(path.join(root, 'manifest.json'), path.join(dist, 'manifest.json')),
     fs.copy(path.join(root, 'src', 'popup.html'), path.join(dist, 'popup.html')),
+    fs.copy(path.join(root, 'src', 'popup.css'), path.join(dist, 'popup.css')),
     fs.copy(path.join(root, 'src', 'background.js'), path.join(dist, 'background.js')),
-    fs.copy(path.join(root, 'src', 'content.js'), path.join(dist, 'content.js'))
+    fs.copy(path.join(root, 'src', 'content.js'), path.join(dist, 'content.js')),
+    fs.copy(path.join(root, 'src', 'userDashboard.html'), path.join(dist, 'userDashboard.html')),
+    fs.copy(path.join(root, 'src', 'userDashboard.css'), path.join(dist, 'userDashboard.css')),
+    fs.copy(path.join(root, 'src', 'userDashboard.js'), path.join(dist, 'userDashboard.js'))
   ])
 
   // Add a placeholder icon if not present

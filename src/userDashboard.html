@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manorakshak • User Dashboard</title>
+    <link rel="stylesheet" href="userDashboard.css" />
+  </head>
+  <body>
+    <div class="dashboard">
+      <header class="dashboard__header">
+        <h1>Manorakshak Dashboard</h1>
+        <p class="subtitle">Daily wellbeing overview</p>
+      </header>
+
+      <main class="grid">
+        <section class="card" id="health-condition">
+          <h2>Health Condition</h2>
+          <div class="content">
+            <p id="health-status">Loading...</p>
+          </div>
+        </section>
+
+        <section class="card" id="content-consumed">
+          <h2>Type of Content Consumed Today</h2>
+          <div class="content">
+            <ul id="content-types"></ul>
+          </div>
+        </section>
+
+        <section class="card" id="daily-stats">
+          <h2>Daily Stats</h2>
+          <div class="content">
+            <div class="stat-row"><span>Focus Sessions</span><strong id="stat-focus">0</strong></div>
+            <div class="stat-row"><span>Calm Mode</span><strong id="stat-calm">—</strong></div>
+            <div class="stat-row"><span>Time Mindful</span><strong id="stat-mindful">—</strong></div>
+          </div>
+        </section>
+
+        <section class="card" id="wellness-tips">
+          <h2>Wellness Tips</h2>
+          <div class="content">
+            <ul id="tips-list"></ul>
+          </div>
+        </section>
+
+        <section class="card" id="progress-tracker">
+          <h2>Progress Tracker</h2>
+          <div class="content">
+            <div class="progress">
+              <div class="progress__bar" id="progress-bar" style="width: 0%"></div>
+            </div>
+            <p id="progress-label">0% towards today's goal</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="userDashboard.js"></script>
+  </body>
+</html> 
