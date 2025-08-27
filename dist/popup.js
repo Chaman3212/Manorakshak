@@ -1096,7 +1096,7 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useRef(initialValue);
           }
-          function useEffect(create, deps) {
+          function useEffect2(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useEffect(create, deps);
           }
@@ -1879,7 +1879,7 @@
           exports.useContext = useContext;
           exports.useDebugValue = useDebugValue;
           exports.useDeferredValue = useDeferredValue;
-          exports.useEffect = useEffect;
+          exports.useEffect = useEffect2;
           exports.useId = useId;
           exports.useImperativeHandle = useImperativeHandle;
           exports.useInsertionEffect = useInsertionEffect;
@@ -24436,38 +24436,74 @@
   var import_react = __toESM(require_react());
   var import_jsx_runtime = __toESM(require_jsx_runtime());
   function App() {
-    const [length, setLength] = (0, import_react.useState)(null);
-    const [loading, setLoading] = (0, import_react.useState)(false);
-    const [error, setError] = (0, import_react.useState)("");
-    async function analyze() {
-      try {
-        setLoading(true);
-        setError("");
-        setLength(null);
-        const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-        const [{ result }] = await chrome.scripting.executeScript({
-          target: { tabId: tab.id },
-          func: () => document.body.innerText
-        });
-        setLength(result.length);
-      } catch (e) {
-        setError("Failed to analyze page");
-      } finally {
-        setLoading(false);
+    const [time, setTime] = (0, import_react.useState)(25 * 60);
+    const [isRunning, setIsRunning] = (0, import_react.useState)(false);
+    const [streak, setStreak] = (0, import_react.useState)(
+      parseInt(localStorage.getItem("streak") || "0")
+    );
+    const [quote, setQuote] = (0, import_react.useState)("");
+    (0, import_react.useEffect)(() => {
+      let timer;
+      if (isRunning && time > 0) {
+        timer = setInterval(() => setTime((t) => t - 1), 1e3);
       }
-    }
-    return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "container", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "title", children: "ManoRakshak" }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "card", style: { marginBottom: 12 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "muted", style: { marginBottom: 8 }, children: "Analyze the current page for content length" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { className: "btn", onClick: analyze, disabled: loading, children: loading ? "Analyzing\u2026" : "Analyze Page" })
+      return () => clearInterval(timer);
+    }, [isRunning, time]);
+    (0, import_react.useEffect)(() => {
+      const quotes = [
+        "Bloom where you are planted \u{1F338}",
+        "Small steps every day \u{1FAB7}",
+        "Breathe. Focus. Grow \u{1F33F}",
+        "Consistency creates miracles \u2728",
+        "Be calm like the lotus in muddy water \u{1F30A}"
+      ];
+      setQuote(quotes[Math.floor(Math.random() * quotes.length)]);
+    }, []);
+    (0, import_react.useEffect)(() => {
+      localStorage.setItem("streak", streak);
+    }, [streak]);
+    const formatTime = (seconds) => {
+      const m = String(Math.floor(seconds / 60)).padStart(2, "0");
+      const s = String(seconds % 60).padStart(2, "0");
+      return `${m}:${s}`;
+    };
+    return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "w-80 p-5 bg-gradient-to-b from-green-50 to-white rounded-2xl shadow-xl flex flex-col items-center", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { className: "text-2xl font-bold text-green-700 mb-2", children: "\u{1F338} Chirag Lotus" }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { className: "text-sm text-gray-600 italic text-center mb-4", children: quote }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "text-4xl font-mono text-green-800 mb-4", children: formatTime(time) }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "flex gap-2 mb-4", children: [
+        !isRunning ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+          "button",
+          {
+            onClick: () => setIsRunning(true),
+            className: "px-4 py-2 bg-green-600 text-white rounded-xl shadow hover:bg-green-700",
+            children: "\u25B6 Start"
+          }
+        ) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+          "button",
+          {
+            onClick: () => setIsRunning(false),
+            className: "px-4 py-2 bg-red-500 text-white rounded-xl shadow hover:bg-red-600",
+            children: "\u23F8 Pause"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+          "button",
+          {
+            onClick: () => {
+              setIsRunning(false);
+              setTime(25 * 60);
+              setStreak(streak + 1);
+            },
+            className: "px-4 py-2 bg-pink-500 text-white rounded-xl shadow hover:bg-pink-600",
+            children: "\u{1F504} Reset"
+          }
+        )
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "card", children: [
-        error && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { color: "#ef4444", marginBottom: 8 }, children: error }),
-        length === null ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "muted", children: "No analysis yet." }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-          "Page text length: ",
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: length.toLocaleString() })
-        ] })
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "text-sm text-gray-700", children: [
+        "\u{1F525} Focus Streak: ",
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "font-bold text-green-700", children: streak }),
+        " days"
       ] })
     ] });
   }

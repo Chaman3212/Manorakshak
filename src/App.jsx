@@ -43,7 +43,7 @@ export default function App() {
   return (
     <div className="w-80 p-5 bg-gradient-to-b from-green-50 to-white rounded-2xl shadow-xl flex flex-col items-center">
       {/* Title */}
-      <h1 className="text-2xl font-bold text-green-700 mb-2">🌸 Mindful Lotus</h1>
+      <h1 className="text-2xl font-bold text-green-700 mb-2">🌸Manorakshak</h1>
 
       {/* Daily Quote */}
       <p className="text-sm text-gray-600 italic text-center mb-4">{quote}</p>
