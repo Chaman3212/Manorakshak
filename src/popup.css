@@ -16,8 +16,11 @@
 }
 
 html, body {
-  background: linear-gradient(180deg, var(--bg-start), var(--bg-end));
+  /* background: linear-gradient(180deg, var(--bg-start), var(--bg-end)); */
   color: var(--ink);
+  background: url('/public/cv2.jpg') no-repeat center center;
+  background-size: cover;
+  
 }
 
 .mrk-popup {

@@ -24508,11 +24508,11 @@
       const s = String(seconds % 60).padStart(2, "0");
       return `${m}:${s}`;
     };
-    return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "mrk-popup w-80 p-5 bg-gradient-to-b from-green-50 to-white rounded-2xl shadow-xl", children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+    return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "mrk-popup w-80 p-5 bg-gradient-to-b from-green-50 to-white rounded-2xl shadow-xl gap-2 ", children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { className: "mrk-title text-2xl font-bold text-green-700 mb-2", children: "\u{1F338}Manorakshak" }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { className: "mrk-quote text-sm text-gray-600 italic text-center mb-4", children: quote }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "mrk-timer text-4xl font-mono text-green-800 mb-4", children: formatTime(time) }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "mrk-controls flex gap-2 mb-4 justify-center items-center", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "mrk-controls flex gap-6 mb-4 justify-center items-center", children: [
         !isRunning ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
           "button",
           {

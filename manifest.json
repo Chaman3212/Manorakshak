@@ -26,7 +26,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["userDashboard.html", "userDashboard.js", "userDashboard.css"],
+      "resources": ["userDashboard.html", "userDashboard.js", "userDashboard.css","cv2.jpg"],
       "matches": ["<all_urls>"]
     }
   ]
