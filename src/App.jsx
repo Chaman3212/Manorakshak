@@ -83,7 +83,12 @@ export default function App() {
   };
 
   return (
-    <div className="mrk-popup w-80 p-5 bg-gradient-to-b from-green-50 to-white rounded-2xl shadow-xl gap-2 ">
+    <div   style={{
+    backgroundImage: "url('/cV2.jpg')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+  }} className="mrk-popup w-80 p-5 bg-black rounded-2xl shadow-xl gap-2   ">
      <div>
        {/* Title */}
       <h1 className="mrk-title text-2xl font-bold text-green-700 mb-2">🌸Manorakshak</h1>

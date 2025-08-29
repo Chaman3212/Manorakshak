@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for Manorakshak */
+@layer components {
+  .mrk-popup {
+    @apply bg-gradient-to-br from-green-50 to-white;
+  }
+  
+  .mrk-title {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-green-800;
+  }
+  
+  .mrk-btn {
+    @apply transition-all duration-200 transform hover:scale-105 active:scale-95;
+  }
+  
+  .mrk-timer {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-green-700 to-green-900;
+  }
+} 

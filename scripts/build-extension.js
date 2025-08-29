@@ -10,6 +10,17 @@ async function main() {
   await fs.remove(dist)
   await fs.ensureDir(dist)
 
+  // Process Tailwind CSS
+  try {
+    console.log('Processing Tailwind CSS...')
+    const { execSync } = await import('child_process')
+    execSync('npx tailwindcss -i ./src/index.css -o ./dist/popup.css --minify', { stdio: 'inherit' })
+  } catch (error) {
+    console.error('Error processing Tailwind CSS:', error.message)
+    // Fallback: copy the original CSS file
+    await fs.copy(path.join(root, 'src', 'index.css'), path.join(dist, 'popup.css'))
+  }
+
   // Bundle popup.jsx -> popup.js
   await build({
     entryPoints: [path.join(root, 'src', 'popup.jsx')],
@@ -26,7 +37,6 @@ async function main() {
   await Promise.all([
     fs.copy(path.join(root, 'manifest.json'), path.join(dist, 'manifest.json')),
     fs.copy(path.join(root, 'src', 'popup.html'), path.join(dist, 'popup.html')),
-    fs.copy(path.join(root, 'src', 'popup.css'), path.join(dist, 'popup.css')),
     fs.copy(path.join(root, 'src', 'background.js'), path.join(dist, 'background.js')),
     fs.copy(path.join(root, 'src', 'content.js'), path.join(dist, 'content.js')),
     fs.copy(path.join(root, 'src', 'userDashboard.html'), path.join(dist, 'userDashboard.html')),
